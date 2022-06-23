@@ -20,6 +20,7 @@ __metadata:
   resolution: "apism@workspace:."
   dependencies:
     express: ^4.18.1
+    supervisor: ^0.12.0
   languageName: unknown
   linkType: soft
 
@@ -490,6 +491,16 @@ __metadata:
   version: 2.0.1
   resolution: "statuses@npm:2.0.1"
   checksum: 18c7623fdb8f646fb213ca4051be4df7efb3484d4ab662937ca6fbef7ced9b9e12842709872eb3020cc3504b93bde88935c9f6417489627a7786f24f8031cbcb
+  languageName: node
+  linkType: hard
+
+"supervisor@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "supervisor@npm:0.12.0"
+  bin:
+    node-supervisor: lib/cli-wrapper.js
+    supervisor: lib/cli-wrapper.js
+  checksum: 3e425d6a7370be8004c14864423f69060cc315bfaebe26ad6f9db4877b89897a79281547407bd3ad51852b91cfb2322699d0c7b8f088f8b917808c9c72f94146
   languageName: node
   linkType: hard
 
