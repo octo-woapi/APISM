@@ -4,7 +4,7 @@ import {formations} from "./data/formations.data.js";
 const app = express()
 const port = 3000
 
-const API_KEY = '395a9cce-6ffc-48b8-8372-b95089c3abc6'
+const API_KEY = process.env.MYAPIKEY
 
 
 app.get('/formations', (req, res) => {
