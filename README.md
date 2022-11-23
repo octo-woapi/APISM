@@ -13,3 +13,4 @@ Les différentes branches de ce repo contiennent les différents TP
 * Docker-compose
 * un IDE
 * Postman
+* Exporter la variable d'environnement MYAPIKEY avec la valeur du secret  => export MYAPIKEY=395a9cce-6ffc-48b8-8372-b95089c3abc6
