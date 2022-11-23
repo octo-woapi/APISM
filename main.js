@@ -10,7 +10,7 @@ const API_KEY = '395a9cce-6ffc-48b8-8372-b95089c3abc6'
 app.get('/formations', (req, res) => {
   const apiKeyFromHeader = req.headers['x-api-key']
   if (API_KEY !== apiKeyFromHeader) {
-    res.status(401).send({code: 401, error: 'FORBIDDEN'})
+    res.status(401).send({code: 401, error: 'Unauthorized: Access denied due to invalid subscription key. Make sure to provide a valid key for an active subscription'})
     return
   }
   const result = formations().map((formation) => ({id: formation.id}))
