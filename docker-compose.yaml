@@ -1,0 +1,70 @@
+version: '3.9'
+
+##
+networks:
+  apism_network:
+
+##
+services:
+
+  ## APISM training example API
+  apism.api:
+    container_name: apism.api
+    hostname: apism.api
+    image: docker.io/library/node:21.2.0-bullseye
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app
+    networks:
+      - apism_network
+    command: >
+      bash -c "
+        yarn &&
+        yarn watch
+      "
+  
+  ## Hoppscotch
+  apism.hoppscotch:
+    container_name: apism.hoppscotch
+    hostname: apism.hoppscotch
+    image: docker.io/hoppscotch/hoppscotch:2023.8.4
+    ports:
+      - "8080:3000" # hoppscotch-frontend
+      - "8090:3100" # hoppscotch-admin
+      - "8070:3170" # hoppscotch-backend
+    restart: on-failure
+    env_file: ./docker/hoopscotch.env
+    depends_on:
+      - apism.hoppscotch.db
+    networks:
+      - apism_network
+
+  apism.hoppscotch.db:
+    container_name: apism.hoppscotch.db
+    hostname: apism.hoppscotch.db
+    image: docker.io/library/postgres:16.1-bullseye
+    restart: always
+    networks:
+      - apism_network
+    environment:
+      - POSTGRES_USER=hoppscotch
+      - POSTGRES_PASSWORD=postgres
+    # ports:
+    #   - '5432:5432'
+    userns_mode: "keep-id"
+    volumes:
+      - ./docker/volumes/hoppscotch_db:/var/lib/postgresql/data
+
+  ## Self-hosted SMTP server
+  apism.smtp:
+    container_name: apism.smtp
+    hostname: apism.smtp
+    image: docker.io/mailhog/mailhog:v1.0.1
+    networks:
+      - apism_network
+    ports:
+      - "8025:8025"   # web ui
+      # - "1025:1025"   # smtp server
+
